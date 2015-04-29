@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://fra-lml.appspot.com/_ah/api",
-  "name" : "infoendpoint",
+  "name" : "eventendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
@@ -27,14 +27,14 @@
   "ownerName" : "miage.com",
   "packagePath" : "fralml",
   "methods" : {
-    "infoendpoint.getInfo" : {
-      "path" : "info/{id}",
+    "eventendpoint.getEvent" : {
+      "path" : "event/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.miage.fralml.InfoEndpoint.getInfo",
+      "rosyMethod" : "com.miage.fralml.EventEndpoint.getEvent",
       "request" : {
         "parameters" : {
           "id" : {
@@ -48,35 +48,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "infoendpoint.removeInfo" : {
-      "path" : "info/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.miage.fralml.InfoEndpoint.removeInfo",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "infoendpoint.updateInfo" : {
-      "path" : "info",
+    "eventendpoint.updateEvent" : {
+      "path" : "event",
       "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.miage.fralml.InfoEndpoint.updateInfo",
+      "rosyMethod" : "com.miage.fralml.EventEndpoint.updateEvent",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -85,14 +64,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "infoendpoint.listInfo" : {
-      "path" : "info",
+    "eventendpoint.listEvent" : {
+      "path" : "event",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.miage.fralml.InfoEndpoint.listInfo",
+      "rosyMethod" : "com.miage.fralml.EventEndpoint.listEvent",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -110,14 +89,35 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "infoendpoint.insertInfo" : {
-      "path" : "info",
+    "eventendpoint.removeEvent" : {
+      "path" : "event/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.miage.fralml.EventEndpoint.removeEvent",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "eventendpoint.insertEvent" : {
+      "path" : "event",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.miage.fralml.InfoEndpoint.insertInfo",
+      "rosyMethod" : "com.miage.fralml.EventEndpoint.insertEvent",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -129,30 +129,51 @@
   },
   "descriptor" : {
     "schemas" : {
-      "Info" : {
-        "id" : "Info",
+      "Event" : {
+        "id" : "Event",
         "type" : "object",
         "properties" : {
-          "id" : {
+          "key" : {
             "type" : "string",
             "format" : "int64"
           },
           "name" : {
             "type" : "string"
           },
-          "unable" : {
+          "place" : {
+            "type" : "string"
+          },
+          "date" : {
+            "type" : "string"
+          },
+          "players" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "desc" : {
+            "type" : "string"
+          },
+          "longitude" : {
+            "type" : "string"
+          },
+          "latitude" : {
+            "type" : "string"
+          },
+          "url" : {
             "type" : "string"
           }
         }
       },
-      "CollectionResponse_Info" : {
-        "id" : "CollectionResponse_Info",
+      "CollectionResponse_Event" : {
+        "id" : "CollectionResponse_Event",
         "type" : "object",
         "properties" : {
           "items" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Info"
+              "$ref" : "Event"
             }
           },
           "nextPageToken" : {
@@ -162,32 +183,32 @@
       }
     },
     "methods" : {
-      "com.miage.fralml.InfoEndpoint.getInfo" : {
+      "com.miage.fralml.EventEndpoint.getEvent" : {
         "response" : {
-          "$ref" : "Info"
+          "$ref" : "Event"
         }
       },
-      "com.miage.fralml.InfoEndpoint.removeInfo" : {
-      },
-      "com.miage.fralml.InfoEndpoint.updateInfo" : {
+      "com.miage.fralml.EventEndpoint.updateEvent" : {
         "request" : {
-          "$ref" : "Info"
+          "$ref" : "Event"
         },
         "response" : {
-          "$ref" : "Info"
+          "$ref" : "Event"
         }
       },
-      "com.miage.fralml.InfoEndpoint.listInfo" : {
+      "com.miage.fralml.EventEndpoint.listEvent" : {
         "response" : {
-          "$ref" : "CollectionResponse_Info"
+          "$ref" : "CollectionResponse_Event"
         }
       },
-      "com.miage.fralml.InfoEndpoint.insertInfo" : {
+      "com.miage.fralml.EventEndpoint.removeEvent" : {
+      },
+      "com.miage.fralml.EventEndpoint.insertEvent" : {
         "request" : {
-          "$ref" : "Info"
+          "$ref" : "Event"
         },
         "response" : {
-          "$ref" : "Info"
+          "$ref" : "Event"
         }
       }
     }
